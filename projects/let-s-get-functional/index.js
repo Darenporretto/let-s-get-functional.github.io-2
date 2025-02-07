@@ -21,19 +21,98 @@ var _ = require('underbar');
  *    IMPORTANT: Make sure you replace <YOUR_GITHUB_FOLDER with your actual github folder name that is in your workspace.
  */
 
+/*
+I: Function takes in an array. 
+O: Function returns the number of male customers. 
+C: Function must use filter method. 
+E:
+*/
 var maleCount = function(array) {
-
+    // Use the filter() method to create a new arrray with all of the elements that pass the implemented function test
+    // Checks if the customers gender is strictly equal to male
+    // Use .length  to give the number of elements in the filtered array with the count of male customers
+    return array.filter(customer => customer.gender === 'male').length;
 };
 
-var femaleCount;
+/*
+I: Function takes in an array. 
+O: Function return the number of female customers. 
+C: Function must use the reduce method. 
+E:
+*/
+var femaleCount = function(array) {
+    // Use the reduce() method to iterate over the array
+    return array.reduce((count, customer) => {
+        // Start the accumulator count at zero
+        // If the gender is female increment the count by one
+        // Return the total number of femailes
+        return customer.gender === "female" ? count + 1 : count;
+    }, 0);
+};
 
-var oldestCustomer;
+/*
+I: Function takes in an array. 
+O: Function should return a string. 
+C:
+E:
+*/
+var oldestCustomer = function(array) {
+    // Use the reduce() method to iterate over each customer and check their age
+    return array.reduce((oldest, customer) => {
+        // Returns a string of the oldest customer after iterating  with reduce
+        // Use ternary operator in place of an if else statement
+        return (customer.age > oldest.age) ? customer : oldest;
+    }).name;
+};
 
-var youngestCustomer;
+/*
+I: Function takes in an array.
+O: Function should return a string. 
+C:
+E:
+*/
+var youngestCustomer = function(array) {
+    // Use the reduce() method to iterate over each customer and check their age
+    return array.reduce((youngest, customer) => {
+        // Returns a string of the younget customer after iterating  with reduce
+        // Use ternary operatorin rplace of an if else statement
+        return (customer.age < youngest.age) ? customer : youngest;
+    }).name;
+};
 
-var averageBalance;
+/*
+I: Function takes in an array. 
+O: Function should return a number representing th avverage balance
+E:
+C:
+*/
 
-var firstLetterCount;
+var averageBalance = function(array) {
+    const totalBalance = array.reduce((sum, customer) => {
+        // Remove dollar sign and commas and convert to number
+        const balance = parseFloat(customer.balance.replace(/[^0-9.-]+/g, ''));
+        return sum + balance;
+    }, 0); // start the sum from 0
+    
+    // Calculate the average by dividing the total balance by the number of customers
+    return totalBalance / array.length;
+};
+
+
+/*
+I: Function takes in an array. 
+O: Function should return a number representing how many customer's names begin with a given letter. 
+E:
+C:
+*/
+
+var firstLetterCount = function(array, letter) {
+    // Use the filter() method to create a new arrray with names that begin with given letter
+    // Check if customer.name is equal to provided letter
+    // Change to lower case for case insenitivity comparison
+    return array.filter(customer => customer.name[0].toLowerCase() === letter.toLowerCase()).length;
+};
+
 
 var friendFirstLetterCount;
 
