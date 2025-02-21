@@ -114,13 +114,42 @@ var firstLetterCount = function(array, letter) {
 };
 
 
-var friendFirstLetterCount;
+var friendFirstLetterCount = function(customers, customerName, letter) {
+    const customer = customers.find(c => c.name === customerName);
+    if (!customer || !customer.friends) return 0;
+  
+    return customer.friends.filter(friend => friend.name[0].toLowerCase() === letter.toLowerCase()).length;
+};
+  
 
-var friendsCount;
+var friendsCount = function(customers, customerName) {
+    return customers.filter(customer =>
+      customer.friends.some(friend => friend.name === customerName)
+    ).map(customer => customer.name);
+  };
+  
 
-var topThreeTags;
+  var topThreeTags = function(customers) {
+    const allTags = customers.flatMap(customer => customer.tags);
+    const tagCounts = allTags.reduce((acc, tag) => {
+      acc[tag] = (acc[tag] || 0) + 1;
+      return acc;
+    }, {});
+  
+    return Object.entries(tagCounts)
+      .sort((a, b) => b[1] - a[1])  // Sort by count in descending order
+      .slice(0, 3)  // Take the top 3 tags
+      .map(entry => entry[0]);  // Return only the tag names
+  };
+  
 
-var genderCount;
+  var genderCount = function(customers) {
+    return customers.reduce((acc, customer) => {
+      acc[customer.gender] = (acc[customer.gender] || 0) + 1;
+      return acc;
+    }, {});
+  };
+  
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
